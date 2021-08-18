@@ -34,3 +34,44 @@ def financial_envelopes(list_exception, amount_of_money):
 amount_of_money = 50000 # Сумма денег для разбития по конвертам.
 list_exception = ['business']  # Конверты которые не принимают участия.
 financial_envelopes(list_exception, amount_of_money)
+
+#####################################
+class MoneyCounter():
+    def __init__(self, half_money):
+        self.half_money = half_money / 2
+        self.vova_salary = 0
+        self.pasha_money = 0
+        self.reinvestment_money = 0
+        self.invest_fund_real_estate = 0
+        self.addition_to_vova_iffund = self.half_money * 0.05
+        self.addition_to_pasha_iffund = self.half_money * 0.05
+        self.realest_money(self.half_money)
+        self.investor_money(self.half_money)
+    
+    def realest_money(self, half_money):
+        self.vova_salary += half_money * 0.25
+        self.pasha_money += half_money * 0.25
+        self.reinvestment_money += half_money * 0.25
+        self.invest_fund_real_estate += half_money * 0.20
+    
+    def investor_money(self, half_money):
+        self.vova_salary += half_money * 0.30
+        self.pasha_money += half_money * 0.40
+        self.reinvestment_money += half_money * 0.10
+        self.invest_fund_real_estate += half_money * 0.15
+    
+    def __str__(self):
+        return \
+            f'''
+            ЗП Вова = {self.vova_salary}
+            ЗП Паша = {self.pasha_money}
+            Реинвестиция = {self.reinvestment_money}
+            ИФ агенство = {self.invest_fund_real_estate}
+            Добавление к фонду Вовы = {self.addition_to_vova_iffund}
+            Добавление к фонду Паши = {self.addition_to_pasha_iffund}
+            '''
+
+
+first = MoneyCounter(1000)
+print(first)
+
