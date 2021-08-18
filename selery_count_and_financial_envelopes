@@ -37,8 +37,8 @@ financial_envelopes(list_exception, amount_of_money)
 
 #####################################
 class MoneyCounter():
-    def __init__(self, half_money):
-        self.half_money = half_money / 2
+    def __init__(self, money):
+        self.half_money = money / 2
         self.vova_salary = 0
         self.pasha_money = 0
         self.reinvestment_money = 0
