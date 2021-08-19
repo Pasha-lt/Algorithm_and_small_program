@@ -37,41 +37,55 @@ financial_envelopes(list_exception, amount_of_money)
 
 #####################################
 class MoneyCounter():
-    def __init__(self, money):
-        self.half_money = money / 2
+    def __init__(self, money, part_invest, part_if):
+        '''
+        money - прибыль которую нужно разделить.
+        part_invest - сумма в долларах которую инвестировал инвестор.
+        part_if - сумма в долларах которую взяли с ИФ агенства.
+        '''
+        self.money = money
+        self.part_invest = part_invest/(part_invest + part_if)
+        self.part_if = part_if/(part_invest + part_if)
         self.vova_salary = 0
         self.pasha_money = 0
         self.reinvestment_money = 0
         self.invest_fund_real_estate = 0
-        self.addition_to_vova_iffund = self.half_money * 0.05
-        self.addition_to_pasha_iffund = self.half_money * 0.05
-        self.realest_money(self.half_money)
-        self.investor_money(self.half_money)
+        self.addition_to_vova_iffund = self.money * 0.025
+        self.addition_to_pasha_iffund = self.money * 0.025
+        self.realest_money(self.part_if*self.money)
+        self.investor_money(self.part_invest*self.money)
     
-    def realest_money(self, half_money):
-        self.vova_salary += half_money * 0.25
-        self.pasha_money += half_money * 0.25
-        self.reinvestment_money += half_money * 0.25
-        self.invest_fund_real_estate += half_money * 0.20
+    def realest_money(self, ifre_money):
+        '''Высчитывает часть Инвестиционого фонда'''
+        self.vova_salary += ifre_money * 0.25
+        self.pasha_money += ifre_money * 0.25
+        self.reinvestment_money += ifre_money * 0.25
+        self.invest_fund_real_estate += ifre_money * 0.20
     
-    def investor_money(self, half_money):
-        self.vova_salary += half_money * 0.30
-        self.pasha_money += half_money * 0.40
-        self.reinvestment_money += half_money * 0.10
-        self.invest_fund_real_estate += half_money * 0.15
+    def investor_money(self, invest_money):
+        '''Высчитывает часть Ивестора'''
+        self.vova_salary += invest_money * 0.30
+        self.pasha_money += invest_money * 0.40
+        self.reinvestment_money += invest_money * 0.10
+        self.invest_fund_real_estate += invest_money * 0.15
     
     def __str__(self):
         return \
             f'''
-            ЗП Вова = {self.vova_salary}
-            ЗП Паша = {self.pasha_money}
-            Реинвестиция = {self.reinvestment_money}
-            ИФ агенство = {self.invest_fund_real_estate}
-            Добавление к фонду Вовы = {self.addition_to_vova_iffund}
-            Добавление к фонду Паши = {self.addition_to_pasha_iffund}
+            ЗП Вова = {round(self.vova_salary, 2)}
+            ЗП Паша = {round(self.pasha_money, 2)}
+            Реинвестиция = {round(self.reinvestment_money, 2)}
+            ИФ агенство = {round(self.invest_fund_real_estate, 2)}
+            Добавление к фонду Вовы = {round(self.addition_to_vova_iffund, 2)}
+            Добавление к фонду Паши = {round(self.addition_to_pasha_iffund, 2)}
             '''
 
 
-first = MoneyCounter(1000)
+first = MoneyCounter(money=2400, part_invest=1000, part_if=1500)
 print(first)
+
+second = MoneyCounter(money=700, part_invest=7000, part_if=2500)
+print(second)
+
+
 
