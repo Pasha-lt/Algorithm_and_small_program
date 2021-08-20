@@ -1,21 +1,27 @@
-def selery_count(summa):
-    zp_agent = summa * 0.45
-    branch_money = (summa - zp_agent)*0.15
-    third_step = summa - zp_agent - branch_money
+import math
 
-    print(f'ЗП агента - {zp_agent}\nНа Агенство - {int(branch_money)}\nЗП Руководитель Отдела - {int(third_step*0.5)}\nЗП Руководитель другого отдела - {int(third_step*0.05)}'
-          f'\nИФ сотрудника - {int(third_step*0.01)}\nИФ Руководитель Отдела - {int(third_step*0.07)}\nИФ Основатель - {int(third_step*0.07)}\nЗП Основатель - {int(third_step*0.3)}')
+class RealEstate:
+    def selery_count(self, summa):
+        zp_agent = summa * 0.45
+        branch_money = (summa - zp_agent) * 0.15
+        third_step = summa - zp_agent - branch_money
+        
+        result_str = f'ЗП агента - {zp_agent}\nНа Агенство - {int(branch_money)}\nЗП Руководитель Отдела - {int(third_step * 0.5)}\nЗП Руководитель другого отдела - {int(third_step * 0.05)}'\
+            f'\nИФ сотрудника - {int(third_step * 0.01)}\nИФ Руководитель Отдела - {int(third_step * 0.07)}\nИФ Основатель - {int(third_step * 0.07)}\nЗП Основатель - {int(third_step * 0.3)}'
+        return result_str
 
 how = int(input('Сумма'))
-selery_count(how)
+w1 = RealEstate()
+w1_2 = w1.selery_count(5000)
+print(w1_2)
 
 
 def financial_envelopes(list_exception, amount_of_money):
     """Передаем в списке названия тех инвестиционных инструментов которые не принимают участия
      в распределении финансов. проценты с непринимающих участия деляться на остальные категории"""
-    invest = { 'conservative': 5, 'business': 35, 'relocate': 5, 'vocation': 20,
+    invest = {'conservative': 5, 'business': 35, 'relocate': 5, 'vocation': 20,
               'crypto': 5, 'antiques': 5, 'save': 25}
-    add_percent = sum([invest.pop(x) for x in list_exception])/len(invest)
+    add_percent = sum([invest.pop(x) for x in list_exception]) / len(invest)
     for key in invest.keys():
         invest[key] += add_percent
     all_money = 0
@@ -25,15 +31,16 @@ def financial_envelopes(list_exception, amount_of_money):
             print(f'В конверт save сумма = {save_env_money}')
             print('-->', save_env_money + all_money)
         else:
-            money_in_env = math.ceil(amount_of_money/100*factor)
+            money_in_env = math.ceil(amount_of_money / 100 * factor)
             all_money += money_in_env
             print(f'В конверт {envelope} сумма = {money_in_env}')  # сумма в всех конвертах
         # print(f'В конверт {envelope} сумма = {money_in_env}')  # сумма в всех конвертах
 
 
-amount_of_money = 50000 # Сумма денег для разбития по конвертам.
+amount_of_money = 50000  # Сумма денег для разбития по конвертам.
 list_exception = ['business']  # Конверты которые не принимают участия.
 financial_envelopes(list_exception, amount_of_money)
+
 
 #####################################
 class MoneyCounter():
@@ -44,32 +51,34 @@ class MoneyCounter():
         part_if - сумма в долларах которую взяли с ИФ агенства.
         '''
         self.money = money
-        self.part_invest = part_invest/(part_invest + part_if)
-        self.part_if = part_if/(part_invest + part_if)
+        self.part_invest = part_invest / (part_invest + part_if)
+        self.part_if = part_if / (part_invest + part_if)
         self.vova_salary = 0
         self.pasha_money = 0
         self.reinvestment_money = 0
         self.invest_fund_real_estate = 0
         self.addition_to_vova_iffund = self.money * 0.025
         self.addition_to_pasha_iffund = self.money * 0.025
-        self.realest_money(self.part_if*self.money)
-        self.investor_money(self.part_invest*self.money)
+        self.realest_money(self.part_if * self.money)
+        self.investor_money(self.part_invest * self.money)
     
     def realest_money(self, ifre_money):
-        '''Высчитывает часть Инвестиционого фонда'''
+        '''метод высчитывает часть Инвестиционого фонда'''
         self.vova_salary += ifre_money * 0.25
         self.pasha_money += ifre_money * 0.25
         self.reinvestment_money += ifre_money * 0.25
         self.invest_fund_real_estate += ifre_money * 0.20
     
     def investor_money(self, invest_money):
-        '''Высчитывает часть Ивестора'''
+        '''метод высчитывает часть Ивестора'''
         self.vova_salary += invest_money * 0.30
         self.pasha_money += invest_money * 0.40
         self.reinvestment_money += invest_money * 0.10
         self.invest_fund_real_estate += invest_money * 0.15
     
     def __str__(self):
+        '''Метод используетться для удобного "human" одображения при печати экземпляра класса. 
+        Выводит конечный результат.'''
         return \
             f'''
             ЗП Вова = {round(self.vova_salary, 2)}
@@ -83,9 +92,3 @@ class MoneyCounter():
 
 first = MoneyCounter(money=2400, part_invest=1000, part_if=1500)
 print(first)
-
-second = MoneyCounter(money=700, part_invest=7000, part_if=2500)
-print(second)
-
-
-
