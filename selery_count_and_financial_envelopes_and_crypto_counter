@@ -77,8 +77,11 @@ class MoneyCounter():
         self.invest_fund_real_estate += invest_money * 0.15
     
     def __str__(self):
-        '''Метод используетться для удобного "human" одображения при печати экземпляра класса. 
+        '''Метод используетться для удобного "human" одображения при печати экземпляра класса.
         Выводит конечный результат.'''
+        self.good_or_bad = 'МЕСЯЦ ПЛОХОЙ'
+        if self.vova_salary > 200:
+            self.good_or_bad = 'МЕСЯЦ В ПЛЮС'
         return \
             f'''
             ЗП Вова = {round(self.vova_salary, 2)}
@@ -87,8 +90,11 @@ class MoneyCounter():
             ИФ агенство = {round(self.invest_fund_real_estate, 2)}
             Добавление к фонду Вовы = {round(self.addition_to_vova_iffund, 2)}
             Добавление к фонду Паши = {round(self.addition_to_pasha_iffund, 2)}
+            {self.good_or_bad}
             '''
 
 
-first = MoneyCounter(money=2400, part_invest=1000, part_if=1500)
+first = MoneyCounter(money=750, part_invest=1500, part_if=1500)
+print(first)
+first = MoneyCounter(money=700, part_invest=1500, part_if=1500)
 print(first)
