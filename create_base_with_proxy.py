@@ -3,11 +3,6 @@ from bs4 import BeautifulSoup
 import re
 
 
-import requests
-from bs4 import BeautifulSoup
-import re
-
-
 def check_proxy(list_proxy):
     work_proxy = []
     for number, proxy in enumerate(list_proxy):
