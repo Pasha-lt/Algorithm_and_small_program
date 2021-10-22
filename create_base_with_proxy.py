@@ -46,3 +46,21 @@ def get_ip_list():
         if m:
             ip_list.append(m.group(0))
     return check_proxy(ip_list)
+
+def check_my_ip(proxy_list):
+    fast_ip_list = []
+    
+    for proxy in proxy_list:
+        try:
+            my_ip = requests.get('https://httpbin.org/ip', proxies={'http': proxy, 'https': proxy},
+                                 timeout=30)
+        except requests.exceptions.ConnectionError:
+            print(f'Этот айпи не удовлетворяет время отклика {proxy}')
+            continue
+        
+        if my_ip.json()['origin'] in proxy:
+            fast_ip_list.append(proxy)
+            print(f'Этот прокси удовлетворяет время отклика {my_ip.json()} - {proxy}')
+        else:
+            print(f'входной прокси и финальный отличается {my_ip.json()["origin"]} != {proxy}')
+    return fast_ip_list
