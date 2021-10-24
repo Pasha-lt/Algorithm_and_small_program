@@ -21,6 +21,9 @@ def short_version(list_a):
     result = [list_a[1], *list_a] >= list_a
     return result
 
+def check_throght_sort(list_a):
+    return list_a == sorted(list_a)
+
 assert old_function([0, 1, 23, 567]) == True
 # assert old_function([1, 1, 1, 1]) == True  # Он сломается, если будут одинаковые цифры
 # assert old_function([]) == False # пустой список тоже сломает
@@ -44,3 +47,10 @@ assert short_version([57, 1, 23, 14, 28]) == False
 assert short_version([57, 1, 23, 14, 36, 28]) == False
 assert short_version([100, 23, 1]) == False
 print(3)
+assert check_throght_sort([0, 1, 23, 567]) == True
+assert check_throght_sort([0, 1, 23, 567, 1004, 20898]) == True
+assert check_throght_sort([909, 915, 2020]) == True
+assert check_throght_sort([57, 1, 23, 14, 28]) == False
+assert check_throght_sort([57, 1, 23, 14, 36, 28]) == False
+assert check_throght_sort([100, 23, 1]) == False
+print(4)
